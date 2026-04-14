@@ -117,15 +117,15 @@ Similar to [MutexGuard](https://doc.rust-lang.org/std/sync/struct.MutexGuard.htm
 
 #### FOR UPDATE
 
-The `FOR UPDATE` locks is held during the processing of a batch of tasks. Holding the locks may stop postgres from vacuuming.
+The `FOR UPDATE` locks are held during the processing of a batch of tasks. Holding the locks may stop postgres from vacuuming.
 
 #### Why no validation
 
 Time
 
-#### Worker tick could be better but it takes as long as the lowest task (with timeout)
+#### Worker tick could be better but it takes as long as the slowest task (with timeout)
 
-The worker fetches a batch of tasks and executes them all before proceeding which means the amount of time the worker waits before fetching new tasks is the amount of time it takes to execute the lowest task. There are timeouts but workers could process messages as soon as they are available instead.
+The worker fetches a batch of tasks and executes them all before proceeding which means the amount of time the worker waits before fetching new tasks is the amount of time it takes to execute the slowest task. There are timeouts but workers could process messages as soon as they are available instead.
 
 #### Why no deadletter queue and how it would work
 
